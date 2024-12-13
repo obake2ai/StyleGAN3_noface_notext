@@ -23,7 +23,7 @@ from torch_utils import training_stats
 from torch_utils import custom_ops
 
 from facenet_pytorch import MTCNN
-from craft_text_detector import Craft
+from torchvision.models.detection import fasterrcnn_resnet50_fpn
 
 #----------------------------------------------------------------------------
 
@@ -65,10 +65,11 @@ def launch_training(c, desc, outdir, dry_run):
     assert not os.path.exists(c.run_dir)
 
     print('Initializing face detector...')
-    face_detector = MTCNN(device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
-
+    #face_detector = MTCNN(device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
+    face_detector = fasterrcnn_resnet50_fpn(pretrained=True).to('cuda' if torch.cuda.is_available() else 'cpu')
+    face_detector.eval()
     print('Initializing text detector...')
-    text_detector = Craft(output_dir=os.path.join(c.run_dir, 'craft_outputs'), cuda=torch.cuda.is_available())
+    text_detector = fasterrcnn_resnet50_fpn(pretrained=True).to('cuda' if torch.cuda.is_available() else 'cpu'))
 
     # Print options.
     print()
