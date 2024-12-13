@@ -266,7 +266,7 @@ class StyleGAN2Loss_noface_notext(StyleGAN2Loss):
                 for i, img in enumerate(gen_img):
                     try:
                         img_scaled = (img * 127.5 + 127.5).clamp(0, 255).to(torch.uint8).permute(1, 2, 0).cpu().numpy()
-                        img_rgb = cv2.cvtColor(img_scaled, cv2.COLOR_BGR2RGB)  # BGRからRGBに変換
+                        img_rgb = img_scaled[..., ::-1] 
                         img_tensor = transforms.ToTensor()(img_rgb).unsqueeze(0).to(self.device)
 
                         with torch.no_grad():
