@@ -237,7 +237,6 @@ class StyleGAN2Loss_noface_notext(StyleGAN2Loss):
         super().__init__(device, G, D, **kwargs)
         self.face_detector = face_detector
         self.text_detector = text_detector
-        self.text_detector.eval()
 
         # ペナルティの重み
         self.lambda_face_penalty = lambda_face_penalty
