@@ -69,7 +69,7 @@ def launch_training(c, desc, outdir, dry_run):
     face_detector = fasterrcnn_resnet50_fpn(pretrained=True).to('cuda' if torch.cuda.is_available() else 'cpu')
     face_detector.eval()
     print('Initializing text detector...')
-    text_detector = fasterrcnn_resnet50_fpn(pretrained=True).to('cuda' if torch.cuda.is_available() else 'cpu'))
+    text_detector = fasterrcnn_resnet50_fpn(pretrained=True).to('cuda' if torch.cuda.is_available() else 'cpu')
 
     # Print options.
     print()
